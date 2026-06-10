@@ -38,6 +38,27 @@ def main():
     
     csv_path = args.csv_path
     
+    # Smart Data Routing:
+    # Check if the provided file is already inside the data/ directory.
+    # If not, automatically copy it to the data/ directory.
+    try:
+        import shutil
+        abs_csv_path = os.path.abspath(csv_path)
+        data_dir = os.path.abspath("data")
+        os.makedirs(data_dir, exist_ok=True)
+        
+        if not os.path.exists(abs_csv_path):
+            raise FileNotFoundError(f"Dataset not found at: {csv_path}")
+            
+        in_data_dir = abs_csv_path.startswith(data_dir + os.sep) or abs_csv_path == os.path.join(data_dir, os.path.basename(abs_csv_path))
+        if not in_data_dir:
+            destination = os.path.join(data_dir, os.path.basename(csv_path))
+            shutil.copy2(abs_csv_path, destination)
+            print(f"📂 File copied to local data directory for organization: {destination}")
+            csv_path = destination
+    except Exception as e:
+        print(f"⚠️ Smart data routing warning: {str(e)}. Proceeding with original path.", file=sys.stderr)
+        
     print(f"🚀 Starting analysis for dataset: {csv_path}")
     
     # Step A: Data processing and sanitization

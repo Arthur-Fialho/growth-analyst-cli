@@ -224,3 +224,6 @@ gemini.md
 google_credentials.json
 reports/
 result_sheet.csv
+
+# Protect the datasets to not expose confidential information
+data/*.csv

@@ -53,6 +53,16 @@ python main.py data/dataset_01_parceiroA.csv
 ---
 ---
 
+## 🤖 The AI-Native Workflow (Natural Language Execution)
+
+This CLI is designed to be agent-friendly. You do not need to memorize terminal commands. You can run this entirely through natural language using your preferred AI assistant (like Claude Code or Cursor).
+
+**Step-by-Step with Claude Code / Cursor:**
+1. Open your terminal and start your AI agent (e.g., type `claude` to start Claude Code) within this project directory.
+2. Ask in natural language to analyze a dataset. For example:
+   > *"Please, analyze the A/B test of Partner A. The file is in data/dataset_01_parceiroA.csv. Use our Python program to do this."*
+3. The AI agent will automatically read this README, understand the CLI syntax, execute `python main.py data/dataset_01_parceiroA.csv` under the hood, and return the final Growth decision directly in your chat interface.
+
 # Growth-Analyst AI-Native CLI (Português)
 
 Uma interface de linha de comando (CLI) em Python para processar dados de testes A/B de variações de cashback. Ela calcula métricas agregadas, utiliza a API do Google Gemini para realizar uma análise de sustentabilidade financeira sob a perspectiva de um Growth Analyst Sênior com retorno em JSON estruturado, registra os resultados em uma planilha do Google Sheets (com fallback local em CSV) e gera relatórios em Markdown.
