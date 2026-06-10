@@ -1,0 +1,22 @@
+# AI Agent Rules for Growth-Analyst CLI
+
+You are an AI assistant running inside the user's IDE. Follow these instructions when the user asks to analyze an A/B test dataset:
+
+1. **Recognize Dataset Inputs**:
+   - The user may attach a CSV file directly to the chat or reference a local file path (e.g. `data/dataset_01_parceiroA.csv` or `/path/to/some/file.csv`).
+   - Recognize this file as the target dataset for A/B testing analysis.
+
+2. **Execute Existing Pipeline**:
+   - **Do NOT** write a new Python script, Jupyter notebook, or custom pandas code in the chat or workspace to clean/analyze this data.
+   - **ALWAYS** use the existing CLI tool entrypoint.
+   - Run the CLI command in the terminal:
+     ```bash
+     python main.py <path_to_the_provided_file>
+     ```
+
+3. **Smart Data Routing**:
+   - Note that if you pass a file path from outside the project's `data/` folder, the CLI will automatically copy it to the `data/` directory for organization. You do not need to do this manually.
+
+4. **Deliver Decision to User**:
+   - After executing `python main.py ...`, capture the terminal output.
+   - Present the final winning variant and the actionable growth decision clearly to the user in your response.
