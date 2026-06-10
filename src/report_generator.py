@@ -30,7 +30,7 @@ def generate_markdown_report(agg_df, partner_name, csv_path, ai_analysis):
     md_df['Taxa de Comissão %'] = md_df['Taxa de Comissão %'].apply(lambda x: f"{x:.2f}%")
     md_df['Taxa de Cashback %'] = md_df['Taxa de Cashback %'].apply(lambda x: f"{x:.2f}%")
     
-    metrics_table = tabulate(md_df, headers='keys', tablefmt='github', index=False)
+    metrics_table = tabulate(md_df, headers='keys', tablefmt='github', showindex=False)
     
     csv_filename = os.path.basename(csv_path)
     current_time_str = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -94,7 +94,7 @@ def print_terminal_summary(agg_df, partner_name, ai_analysis, report_path):
     
     # Print metrics table
     print("\nMetrics Summary Table:")
-    print(tabulate(terminal_table_data, headers='keys', tablefmt='simple', index=False))
+    print(tabulate(terminal_table_data, headers='keys', tablefmt='simple', showindex=False))
     
     print("\n" + "-" * 80)
     print("AI ANALYSIS SUMMARY:")

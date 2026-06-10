@@ -19,7 +19,7 @@ def analyze_growth_data(agg_df, partner_name):
     # Configure Gemini SDK
     genai.configure(api_key=api_key)
     
-    model_name = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
     
     # Format aggregate metrics as a readable JSON string for the prompt
     metrics_records = agg_df.to_dict(orient='records')
