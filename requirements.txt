@@ -1,0 +1,6 @@
+pandas
+google-generativeai
+gspread
+google-auth
+python-dotenv
+tabulate

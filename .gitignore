@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# IA
+
+.ai-jail
+gemini.md
+google_credentials.json
+reports/
+result_sheet.csv
