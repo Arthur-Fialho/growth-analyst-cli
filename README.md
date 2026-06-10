@@ -104,3 +104,15 @@ python main.py data/dataset_01_parceiroA.csv
 - `--sheet-id [ID]`: Sobrescreve o ID da planilha do Google.
 - `--test-name "[Nome]"`: Define um nome customizado para o teste.
 - `--test-description "[Descrição]"`: Define uma descrição customizada para o teste.
+
+---
+
+## 🤖 O Fluxo de Trabalho AI-Native (Execução em Linguagem Natural)
+
+Esta CLI foi projetada para ser amigável para agentes de IA. Você não precisa memorizar comandos de terminal. Você pode executar o projeto inteiramente usando linguagem natural através do seu assistente de IA preferido (como Claude Code, Cursor ou Antigravity).
+
+**Passo a Passo com assistentes/agentes de IA:**
+1. Abra seu terminal e inicie seu agente de IA (por exemplo, digite `claude` para iniciar o Claude Code) dentro deste diretório do projeto.
+2. Peça em linguagem natural para analisar um conjunto de dados. Por exemplo:
+   > *"Por favor, analise o teste A/B do Parceiro A. O arquivo está em data/dataset_01_parceiroA.csv. Use nosso programa Python para fazer isso."*
+3. O agente de IA lerá automaticamente este README, entenderá a sintaxe da CLI, executará `python main.py data/dataset_01_parceiroA.csv` nos bastidores e retornará a decisão final de Growth diretamente na sua interface de chat.
