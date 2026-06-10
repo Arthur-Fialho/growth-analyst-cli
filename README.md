@@ -45,6 +45,8 @@ Analyze a dataset by specifying the path to the CSV:
 python main.py data/dataset_01_parceiroA.csv
 ```
 
+*Note: With Smart Data Routing, if you specify a CSV file from outside the project directory, the CLI will automatically copy it into the `data/` folder for repository organization.*
+
 ### Options:
 - `--sheet-id [ID]`: Override the target Google Sheet ID.
 - `--test-name "[Name]"`: Customize the name of the test.
@@ -55,13 +57,13 @@ python main.py data/dataset_01_parceiroA.csv
 
 ## 🤖 The AI-Native Workflow (Natural Language Execution)
 
-This CLI is designed to be agent-friendly. You do not need to memorize terminal commands. You can run this entirely through natural language using your preferred AI assistant (like Claude Code or Cursor).
+This CLI is designed to be agent-friendly. You do not need to memorize terminal commands or type CLI options manually. You can execute analyses entirely through natural language by dropping a CSV file into Cursor, Claude Code, or other AI assistants.
 
-**Step-by-Step with Claude Code / Cursor:**
-1. Open your terminal and start your AI agent (e.g., type `claude` to start Claude Code) within this project directory.
-2. Ask in natural language to analyze a dataset. For example:
-   > *"Please, analyze the A/B test of Partner A. The file is in data/dataset_01_parceiroA.csv. Use our Python program to do this."*
-3. The AI agent will automatically read this README, understand the CLI syntax, execute `python main.py data/dataset_01_parceiroA.csv` under the hood, and return the final Growth decision directly in your chat interface.
+**How to interact via natural language:**
+1. Drag and drop or attach your CSV file into the AI chat interface (Cursor Composer, Claude Code, etc.).
+2. Ask in natural language:
+   > *"Analyze this dataset for me"* or *"Analyze the A/B test of Partner A at data/dataset_01_parceiroA.csv"*
+3. The AI agent will read the `.cursorrules` and `README.md` files, automatically execute `python main.py <path_to_file>` (handling Smart Data Routing if the file was outside), parse the output, and present the final Growth decision directly in your chat window.
 
 # Growth-Analyst AI-Native CLI (Português)
 
@@ -110,6 +112,8 @@ Execute a análise passando o caminho do arquivo CSV:
 python main.py data/dataset_01_parceiroA.csv
 ```
 
+*Nota: Com o Roteamento de Dados Inteligente (Smart Data Routing), se você especificar um arquivo CSV fora do diretório do projeto, a CLI o copiará automaticamente para a pasta `data/` para manter o repositório organizado.*
+
 ### Opções:
 - `--sheet-id [ID]`: Sobrescreve o ID da planilha do Google.
 - `--test-name "[Nome]"`: Define um nome customizado para o teste.
@@ -119,10 +123,10 @@ python main.py data/dataset_01_parceiroA.csv
 
 ## 🤖 O Fluxo de Trabalho AI-Native (Execução em Linguagem Natural)
 
-Esta CLI foi projetada para ser amigável para agentes de IA. Você não precisa memorizar comandos de terminal. Você pode executar o projeto inteiramente usando linguagem natural através do seu assistente de IA preferido (como Claude Code, Cursor ou Antigravity).
+Esta CLI foi projetada para ser amigável para agentes de IA. Você não precisa memorizar comandos de terminal ou digitar opções da CLI manualmente. Você pode executar análises inteiramente usando linguagem natural simplesmente arrastando e soltando um arquivo CSV no Cursor, Claude Code ou outro assistente de IA.
 
-**Passo a Passo com assistentes/agentes de IA:**
-1. Abra seu terminal e inicie seu agente de IA (por exemplo, digite `claude` para iniciar o Claude Code) dentro deste diretório do projeto.
-2. Peça em linguagem natural para analisar um conjunto de dados. Por exemplo:
-   > *"Por favor, analise o teste A/B do Parceiro A. O arquivo está em data/dataset_01_parceiroA.csv. Use nosso programa Python para fazer isso."*
-3. O agente de IA lerá automaticamente este README, entenderá a sintaxe da CLI, executará `python main.py data/dataset_01_parceiroA.csv` nos bastidores e retornará a decisão final de Growth diretamente na sua interface de chat.
+**Como interagir via linguagem natural:**
+1. Arraste e solte ou anexe seu arquivo CSV na interface de chat da IA (Cursor Composer, Claude Code, etc.).
+2. Pergunte em linguagem natural:
+   > *"Analise este dataset para mim"* ou *"Analise o teste A/B do Parceiro A em data/dataset_01_parceiroA.csv"*
+3. O agente de IA lerá as regras em `.cursorrules` e `README.md`, executará automaticamente `python main.py <caminho_do_arquivo>` (copiando-o para a pasta `data/` se necessário), processará a saída e apresentará a decisão final de Growth diretamente na sua tela de chat.
