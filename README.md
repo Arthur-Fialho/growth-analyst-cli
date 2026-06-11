@@ -91,7 +91,7 @@ To receive the generated reports directly in Google Sheets, you need to configur
 1. **Drop or Attach**: Drag and drop or attach your CSV file into the AI chat interface (Cursor Composer, Claude Code, etc.).
    *Note: If you cannot drag/attach the CSV file directly into the AI agent's chat window, simply place the CSV file anywhere in the project folder (ideally in the `data/` folder or at the project root). The CLI's Smart Data Routing will automatically locate the file, copy it to the `data/` directory for organization, and run the pipeline. Just ask the AI to analyze the file `yourfilename.csv` or its project path.*
 2. **Ask in Natural Language**:
-   > *"Analyze this dataset for me"* or *"Analyze the A/B test of Partner A at data/dataset_01_parceiroA.csv"*
+   > *"Analyze this dataset for me using growth-analyst-cli datasetname.csv"* or *"Analyze the A/B test of Partner A using growth-analyst-cli analysis at data/dataset_01_parceiroA.csv"*
 3. **Execution**: The AI agent will read the `.cursorrules` and `README.md` files, automatically execute `python main.py <path_to_file>` (handling Smart Data Routing if the file was outside the project), parse the output, and present the final Growth decision directly in your chat window.
 
 ---
@@ -263,7 +263,7 @@ Para enviar os relatórios gerados diretamente para uma planilha do Google Sheet
 1. **Arrastar e Anexar**: Arraste e solte ou anexe seu arquivo CSV na interface de chat da IA (Cursor Composer, Claude Code, etc.).
    *Nota: Se não for possível arrastar/anexar o arquivo CSV diretamente na caixa de texto do agente de IA, basta colocar o arquivo em qualquer pasta do projeto (idealmente dentro da pasta `data/` ou na raiz do projeto). O Roteamento Inteligente de Dados da CLI irá localizá-lo, copiá-lo para a pasta `data/` para manter a organização e executar a análise. Em seguida, basta pedir para a IA analisar o arquivo `nome_do_arquivo.csv` ou indicar o seu caminho.*
 2. **Pergunte em Linguagem Natural**:
-   > *"Analise este dataset para mim"* ou *"Analise o teste A/B do Parceiro A em data/dataset_01_parceiroA.csv"*
+   > *"Analise este dataset para mim usando growth-analyst-cli nomedodataset.csv"* ou *"Analise o teste A/B do Parceiro A usando growth-analyst-cli em data/dataset_01_parceiroA.csv"*
 3. **Execução**: O agente de IA lerá as regras em `.cursorrules` e `README.md`, executará automaticamente `python main.py <caminho_do_arquivo>` (copiando-o para a pasta `data/` se necessário), processará a saída e apresentará a decisão final de Growth diretamente na sua tela de chat.
 
 ---

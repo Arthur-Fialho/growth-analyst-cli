@@ -119,7 +119,6 @@ Esquema JSON esperado:
             
     # 3. Gemini fallback routing logic
     elif gemini_key:
-        print("🤖 Initializing Gemini client using gemini-2.5-flash...")
         try:
             import google.generativeai as genai
             genai.configure(api_key=gemini_key)
@@ -128,12 +127,27 @@ Esquema JSON esperado:
             generation_config = {
                 "response_mime_type": "application/json"
             }
+            print(f"🤖 Initializing Gemini client using {model_name}...")
             model = genai.GenerativeModel(
                 model_name=model_name,
                 generation_config=generation_config
             )
-            response = model.generate_content(prompt)
-            response_text = response.text.strip()
+            try:
+                response = model.generate_content(prompt)
+                response_text = response.text.strip()
+            except Exception as e:
+                # If we were using gemini-2.5-flash, try falling back to gemini-2.5-flash-lite
+                if model_name == "gemini-2.5-flash":
+                    print(f"⚠️ Request failed with {model_name}: {e}")
+                    print("🔄 Falling back to gemini-2.5-flash-lite...")
+                    fallback_model = genai.GenerativeModel(
+                        model_name="gemini-2.5-flash-lite",
+                        generation_config=generation_config
+                    )
+                    response = fallback_model.generate_content(prompt)
+                    response_text = response.text.strip()
+                else:
+                    raise e
         except Exception as e:
             raise RuntimeError(f"Error calling Gemini API: {str(e)}") from e
             
