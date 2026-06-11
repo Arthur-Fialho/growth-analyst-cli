@@ -83,8 +83,8 @@ def main():
         
     # Step D: Presentation Layer (Markdown Report & Terminal Summary)
     try:
-        report_path = generate_markdown_report(agg_df, partner_name, csv_path, ai_analysis)
-        print_terminal_summary(agg_df, partner_name, ai_analysis, report_path)
+        report_path, html_report_path = generate_markdown_report(agg_df, partner_name, csv_path, ai_analysis)
+        print_terminal_summary(agg_df, partner_name, ai_analysis, report_path, html_report_path)
     except Exception as e:
         print(f"❌ Presentation layer generation failed: {str(e)}", file=sys.stderr)
         sys.exit(1)
