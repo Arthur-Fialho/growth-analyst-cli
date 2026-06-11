@@ -12,19 +12,41 @@
 An autonomous Python Command Line Interface (CLI) to process A/B test datasets for cashback variations. It generates detailed aggregate metrics, utilizes the user's preferred LLM provider (OpenAI, Anthropic, or Gemini) to perform a professional growth/sustainability analysis with structured JSON output, logs the test results to a centralized Google Sheet (with a local CSV fallback), and creates professional local Markdown and HTML reports.
 
 ## 📋 Table of Contents
-1. [🛠️ Setup & Installation](#-setup--installation)
-2. [✨ Features](#-features)
-3. [🤖 The AI-Native Workflow (Natural Language Execution)](#-the-ai-native-workflow-natural-language-execution)
-4. [🚀 How to Run (Traditional CLI)](#-how-to-run-traditional-cli)
+1. [🛠️ Setup & Installation](#setup-and-installation)
+2. [✨ Features](#features)
+3. [🤖 The AI-Native Workflow (Natural Language Execution)](#ai-native-workflow)
+4. [🚀 How to Run (Traditional CLI)](#how-to-run)
 
 ---
 
+<a id="setup-and-installation"></a>
 ## 🛠️ Setup & Installation
 
-### 1. Requirements
+### 1. Clone the Repository & Navigate to the Folder
+Clone the repository using Git and navigate to the project directory:
+*   **Via HTTPS:**
+    ```bash
+    git clone https://github.com/Arthur-Fialho/growth-analyst-cli.git
+    cd growth-analyst-cli
+    ```
+*   **Via SSH:**
+    ```bash
+    git clone git@github.com:Arthur-Fialho/growth-analyst-cli.git
+    cd growth-analyst-cli
+    ```
+
+### 2. Open in Antigravity or Claude Code
+Open the project folder in your preferred AI-native environment:
+*   **Antigravity (IDE)**: Open the cloned folder `growth-analyst-cli` directly in the Antigravity IDE.
+*   **Claude Code**: Start Claude Code inside the project directory in your terminal:
+    ```bash
+    claude
+    ```
+
+### 3. Requirements
 Ensure you have Python 3.8+ installed.
 
-### 2. Install Dependencies
+### 4. Install Dependencies
 Install the required packages using pip:
 ```bash
 pip install -r requirements.txt
@@ -34,7 +56,7 @@ pip install -r requirements.txt
 pip install --break-system-packages -r requirements.txt
 ```
 
-### 3. Environment Variables (.env)
+### 5. Environment Variables (.env)
 Create a `.env` file in the root of the project (copy from `.env.example`) and configure your preferred AI provider API key along with sheets tracking:
 ```env
 # AI Providers (Fill the one you want to use; OpenAI is prioritized, then Anthropic, then Gemini fallback)
@@ -50,7 +72,7 @@ GOOGLE_SHEETS_CREDENTIALS_JSON="your-raw-json-credentials-string"
 GEMINI_MODEL="gemini-2.5-flash"
 ```
 
-### 4. Google Sheets Integration Setup (Optional)
+### 6. Google Sheets Integration Setup (Optional)
 To receive the generated reports directly in Google Sheets, you need to configure `GOOGLE_SHEET_ID` and `GOOGLE_SHEETS_CREDENTIALS_JSON` in your `.env` file. Here is how to create and configure them:
 
 1. **Create a Google Cloud Project**:
@@ -76,6 +98,7 @@ To receive the generated reports directly in Google Sheets, you need to configur
 
 ---
 
+<a id="features"></a>
 ## ✨ Features
 
 - **Module A: Data Sanitization (Pandas)**: Cleans Brazilian formatted currency strings (R$), drops invalid rows, groups by variant, and calculates aggregate growth/financial metrics. Also implements **Smart Data Routing** to automatically copy outside CSVs to the local `data/` directory.
@@ -85,6 +108,7 @@ To receive the generated reports directly in Google Sheets, you need to configur
 
 ---
 
+<a id="ai-native-workflow"></a>
 ## 🤖 The AI-Native Workflow (Natural Language Execution)
 
 This CLI is designed to be agent-friendly. **You do not need to memorize terminal commands or type CLI options manually.** You can execute analyses entirely through natural language by dropping a CSV file into Cursor, Claude Code, or other AI assistants.
@@ -98,6 +122,7 @@ This CLI is designed to be agent-friendly. **You do not need to memorize termina
 
 ---
 
+<a id="how-to-run"></a>
 ## 🚀 How to Run (Traditional CLI)
 
 Analyze a dataset by specifying the path to the CSV:
@@ -132,19 +157,41 @@ python3 main.py data/dataset_01_parceiroA.csv
 Uma interface de linha de comando (CLI) em Python para processar dados de testes A/B de variações de cashback. Ela calcula métricas agregadas, utiliza o provedor de IA de sua escolha (OpenAI, Anthropic ou Gemini) para realizar uma análise de sustentabilidade financeira sob a perspectiva de um Growth Analyst Sênior com retorno em JSON estruturado, registra os resultados em uma planilha do Google Sheets (com fallback local em CSV) e gera relatórios em Markdown e HTML.
 
 ## 📋 Tabela de Conteúdos
-1. [🛠️ Instalação e Configuração](#-instalacao-e-configuracao)
-2. [✨ Funcionalidades](#-funcionalidades)
-3. [🤖 O Fluxo de Trabalho AI-Native (Execução em Linguagem Natural)](#-o-fluxo-de-trabalho-ai-native-execucao-em-linguagem-natural)
-4. [🚀 Como Executar (CLI Tradicional)](#-como-executar-cli-tradicional)
+1. [🛠️ Instalação e Configuração](#instalacao-e-configuracao)
+2. [✨ Funcionalidades](#funcionalidades)
+3. [🤖 O Fluxo de Trabalho AI-Native (Execução em Linguagem Natural)](#fluxo-ai-native)
+4. [🚀 Como Executar (CLI Tradicional)](#como-executar)
 
 ---
 
+<a id="instalacao-e-configuracao"></a>
 ## 🛠️ Instalação e Configuração
 
-### 1. Requisitos
+### 1. Clonar o Repositório e Acessar a Pasta
+Clone o repositório utilizando Git e navegue até a pasta do projeto:
+*   **Via HTTPS:**
+    ```bash
+    git clone https://github.com/Arthur-Fialho/growth-analyst-cli.git
+    cd growth-analyst-cli
+    ```
+*   **Via SSH:**
+    ```bash
+    git clone git@github.com:Arthur-Fialho/growth-analyst-cli.git
+    cd growth-analyst-cli
+    ```
+
+### 2. Abrir no Antigravity ou Claude Code
+Abra a pasta do projeto no seu ambiente de IA preferido:
+*   **Antigravity (IDE)**: Abra a pasta clonada `growth-analyst-cli` diretamente na IDE Antigravity.
+*   **Claude Code**: Inicie o Claude Code no seu terminal dentro do diretório do projeto:
+    ```bash
+    claude
+    ```
+
+### 3. Requisitos
 Certifique-se de ter o Python 3.8+ instalado.
 
-### 2. Instalar Dependências
+### 4. Instalar Dependências
 Instale as dependências necessárias com pip:
 ```bash
 pip install -r requirements.txt
@@ -154,7 +201,7 @@ pip install -r requirements.txt
 pip install --break-system-packages -r requirements.txt
 ```
 
-### 3. Variáveis de Ambiente (.env)
+### 5. Variáveis de Ambiente (.env)
 Crie um arquivo `.env` na raiz do projeto (copiado de `.env.example`) e configure a chave de API do seu provedor de IA preferido:
 ```env
 # Provedores de IA (Preencha o que deseja utilizar; OpenAI tem prioridade, seguido por Anthropic e Gemini fallback)
@@ -170,7 +217,7 @@ GOOGLE_SHEETS_CREDENTIALS_JSON="conteudo-json-de-credenciais-de-conta-de-servico
 GEMINI_MODEL="gemini-2.5-flash"
 ```
 
-### 4. Configuração da Integração com o Google Sheets (Opcional)
+### 6. Configuração da Integração com o Google Sheets (Opcional)
 Para enviar os relatórios gerados diretamente para uma planilha do Google Sheets, você precisa configurar as variáveis `GOOGLE_SHEET_ID` e `GOOGLE_SHEETS_CREDENTIALS_JSON` no seu arquivo `.env`. Veja como criar e configurar as credenciais:
 
 1. **Criar um Projeto no Google Cloud**:
@@ -196,6 +243,7 @@ Para enviar os relatórios gerados diretamente para uma planilha do Google Sheet
 
 ---
 
+<a id="funcionalidades"></a>
 ## ✨ Funcionalidades
 
 - **Módulo A: Higienização de Dados (Pandas)**: Limpa valores monetários brasileiros (R$), remove linhas corrompidas e calcula agregados financeiros e de ROI por grupo. Também implementa o **Roteamento de Dados Inteligente** para copiar automaticamente CSVs externos para a pasta `data/`.
@@ -205,6 +253,7 @@ Para enviar os relatórios gerados diretamente para uma planilha do Google Sheet
 
 ---
 
+<a id="fluxo-ai-native"></a>
 ## 🤖 O Fluxo de Trabalho AI-Native (Execução em Linguagem Natural)
 
 Esta CLI foi projetada para ser amigável para agentes de IA. **Você não precisa memorizar comandos de terminal ou digitar opções da CLI manualmente.** Você pode executar análises inteiramente usando linguagem natural simplesmente arrastando e soltando um arquivo CSV no Cursor, Claude Code ou outro assistente de IA.
@@ -218,6 +267,7 @@ Esta CLI foi projetada para ser amigável para agentes de IA. **Você não preci
 
 ---
 
+<a id="como-executar"></a>
 ## 🚀 Como Executar (CLI Tradicional)
 
 Execute a análise passando o caminho do arquivo CSV:
