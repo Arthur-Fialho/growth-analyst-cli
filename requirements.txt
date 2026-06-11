@@ -5,3 +5,5 @@ google-auth
 python-dotenv
 tabulate
 markdown
+openai
+anthropic
