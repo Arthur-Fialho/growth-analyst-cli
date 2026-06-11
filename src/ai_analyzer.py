@@ -1,25 +1,33 @@
 import os
 import json
-import google.generativeai as genai
+
+def clean_and_parse_json(text):
+    """
+    Cleans markdown code block wraps and parses text as JSON by extracting
+    the substring between the first '{' and the last '}'.
+    """
+    text = text.strip()
+    start = text.find('{')
+    end = text.rfind('}')
+    if start != -1 and end != -1 and start < end:
+        text = text[start:end+1]
+    return json.loads(text)
 
 def analyze_growth_data(agg_df, partner_name):
     """
-    Sends aggregate A/B test data to Gemini API and retrieves a structured growth analysis.
+    Sends aggregate A/B test data to the configured AI API (OpenAI, Anthropic, or Gemini)
+    and retrieves a structured growth analysis.
+    
     Returns:
-        dict: A dictionary containing:
-            - executive_summary
-            - detailed_analysis
-            - winning_variant_name
-            - actionable_decision
+        dict: A dictionary containing both Portuguese and English key mappings:
+            - resumo_executivo / executive_summary
+            - analise_detalhada / detailed_analysis
+            - nome_variante_vencedora / winning_variant_name
+            - decisao_acionavel / actionable_decision
     """
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise ValueError("GEMINI_API_KEY environment variable is not set.")
-    
-    # Configure Gemini SDK
-    genai.configure(api_key=api_key)
-    
-    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    openai_key = os.getenv("OPENAI_API_KEY")
+    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
+    gemini_key = os.getenv("GEMINI_API_KEY")
     
     # Format aggregate metrics as a readable JSON string for the prompt
     metrics_records = agg_df.to_dict(orient='records')
@@ -57,39 +65,100 @@ Instruções de análise:
 
 Esquema JSON esperado:
 {{
-  "executive_summary": "Resumo executivo conciso do teste A/B em português.",
-  "detailed_analysis": "Análise detalhada comparando os resultados financeiros e de engajamento de cada grupo em português.",
-  "winning_variant_name": "O nome exato do grupo vencedor (por exemplo: 'Grupo 1', 'Grupo 2', ou 'Nenhum')",
-  "actionable_decision": "Recomendação acionável detalhada sobre como proceder em português."
+  "resumo_executivo": "Resumo executivo conciso do teste A/B em português.",
+  "analise_detalhada": "Análise detalhada comparando os resultados financeiros e de engajamento de cada grupo em português.",
+  "nome_variante_vencedora": "O nome exato do grupo vencedor (por exemplo: 'Grupo 1', 'Grupo 2', ou 'Nenhum')",
+  "decisao_acionavel": "Recomendação acionável detalhada sobre como proceder em português."
 }}
 """
     
-    # Configure generation for JSON response format
-    generation_config = {
-        "response_mime_type": "application/json"
-    }
-    
+    # 1. OpenAI routing logic
+    if openai_key:
+        print("🤖 Initializing OpenAI client using gpt-4o-mini...")
+        try:
+            from openai import OpenAI
+            client = OpenAI(api_key=openai_key)
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                response_format={"type": "json_object"},
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "Você é um Growth Analyst Sênior especialista em campanhas de cashback e canais de parceiros. Responda estritamente em JSON usando o esquema solicitado."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+            response_text = response.choices[0].message.content
+        except Exception as e:
+            raise RuntimeError(f"Error calling OpenAI API: {str(e)}") from e
+            
+    # 2. Anthropic routing logic
+    elif anthropic_key:
+        print("🤖 Initializing Anthropic client using claude-3-5-sonnet-latest...")
+        try:
+            import anthropic
+            client = anthropic.Anthropic(api_key=anthropic_key)
+            response = client.messages.create(
+                model="claude-3-5-sonnet-latest",
+                max_tokens=4000,
+                system="Você é um Growth Analyst Sênior especialista em campanhas de cashback e canais de parceiros. Responda estritamente em JSON usando o esquema solicitado.",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
+            )
+            response_text = response.content[0].text
+        except Exception as e:
+            raise RuntimeError(f"Error calling Anthropic API: {str(e)}") from e
+            
+    # 3. Gemini fallback routing logic
+    elif gemini_key:
+        print("🤖 Initializing Gemini client using gemini-2.5-flash...")
+        try:
+            import google.generativeai as genai
+            genai.configure(api_key=gemini_key)
+            model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+            
+            generation_config = {
+                "response_mime_type": "application/json"
+            }
+            model = genai.GenerativeModel(
+                model_name=model_name,
+                generation_config=generation_config
+            )
+            response = model.generate_content(prompt)
+            response_text = response.text.strip()
+        except Exception as e:
+            raise RuntimeError(f"Error calling Gemini API: {str(e)}") from e
+            
+    else:
+        raise ValueError("No API key found. Please set OPENAI_API_KEY, ANTHROPIC_API_KEY, or GEMINI_API_KEY.")
+        
     try:
-        model = genai.GenerativeModel(
-            model_name=model_name,
-            generation_config=generation_config
-        )
-        
-        response = model.generate_content(prompt)
-        response_text = response.text.strip()
-        
         # Parse output
-        analysis = json.loads(response_text)
+        analysis_raw = clean_and_parse_json(response_text)
         
-        # Validate that all required keys are present
-        required_keys = ["executive_summary", "detailed_analysis", "winning_variant_name", "actionable_decision"]
-        for key in required_keys:
-            if key not in analysis:
-                analysis[key] = "N/A"
-                
+        # Enforce exact JSON schema (both Portuguese and English keys)
+        analysis = {
+            "resumo_executivo": analysis_raw.get("resumo_executivo", "N/A"),
+            "analise_detalhada": analysis_raw.get("analise_detalhada", "N/A"),
+            "nome_variante_vencedora": analysis_raw.get("nome_variante_vencedora", "N/A"),
+            "decisao_acionavel": analysis_raw.get("decisao_acionavel", "N/A"),
+            
+            # Map back to English keys to ensure Module C (Google Sheets) and presentation layers don't break
+            "executive_summary": analysis_raw.get("resumo_executivo", analysis_raw.get("executive_summary", "N/A")),
+            "detailed_analysis": analysis_raw.get("analise_detalhada", analysis_raw.get("detailed_analysis", "N/A")),
+            "winning_variant_name": analysis_raw.get("nome_variante_vencedora", analysis_raw.get("winning_variant_name", "N/A")),
+            "actionable_decision": analysis_raw.get("decisao_acionavel", analysis_raw.get("actionable_decision", "N/A"))
+        }
+        
         return analysis
         
     except json.JSONDecodeError as e:
-        raise ValueError(f"Gemini API returned an invalid JSON response. Response: {response.text}") from e
-    except Exception as e:
-        raise RuntimeError(f"Error calling Gemini API: {str(e)}") from e
+        raise ValueError(f"AI model returned an invalid JSON response. Response: {response_text}") from e
