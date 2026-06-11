@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Teste A/B - Parceiro B</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #38bdf8;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #334155;
+            --text-dark: #0f172a;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --accent: #f59e0b;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-light), #818cf8);
+        }
+
+        h1 {
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 4px;
+            background-color: var(--primary-light);
+            border-radius: 2px;
+        }
+
+        h3 {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #e21d48;
+        }
+
+        blockquote {
+            margin: 25px 0;
+            padding: 15px 20px;
+            background-color: #f0f9ff;
+            border-left: 4px solid var(--primary-light);
+            border-radius: 0 8px 8px 0;
+            color: #0369a1;
+            font-style: italic;
+        }
+
+        blockquote p {
+            margin: 0;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            text-align: left;
+            font-weight: 600;
+            padding: 12px 15px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        tr:hover td {
+            background-color: #f1f5f9;
+            transition: background-color 0.2s ease;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: var(--border);
+            margin: 40px 0;
+        }
+
+        footer {
+            margin-top: 45px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de Teste A/B: Parceiro B</h1>
+<h2>1. Metadados do Teste</h2>
+<ul>
+<li><strong>Data da Análise</strong>: 11/06/2026 19:07:31</li>
+<li><strong>Arquivo de Origem</strong>: <code>dataset_02_parceiroB.csv</code></li>
+<li><strong>Parceiro</strong>: Parceiro B</li>
+</ul>
+<h2>2. Métricas Financeiras e de Conversão Agregadas</h2>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>Grupo</th>
+<th>Total Compradores</th>
+<th>Total Comissão</th>
+<th>Total Cashback</th>
+<th>Total Vendas</th>
+<th>ROI</th>
+<th>ROI %</th>
+<th>Ticket Médio</th>
+<th>Taxa de Comissão %</th>
+<th>Taxa de Cashback %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grupo 1</td>
+<td>7990</td>
+<td>R$ 450.321,00</td>
+<td>R$ 163.751,00</td>
+<td>R$ 4.093.818,00</td>
+<td>R$ 286.570,00</td>
+<td>175.00%</td>
+<td>R$ 512,37</td>
+<td>11.00%</td>
+<td>4.00%</td>
+</tr>
+<tr>
+<td>Grupo 2</td>
+<td>5452</td>
+<td>R$ 314.935,00</td>
+<td>R$ 171.778,00</td>
+<td>R$ 2.863.019,00</td>
+<td>R$ 143.157,00</td>
+<td>83.34%</td>
+<td>R$ 525,13</td>
+<td>11.00%</td>
+<td>6.00%</td>
+</tr>
+<tr>
+<td>Grupo 3</td>
+<td>5029</td>
+<td>R$ 289.290,00</td>
+<td>R$ 236.697,00</td>
+<td>R$ 2.629.963,00</td>
+<td>R$ 52.593,00</td>
+<td>22.22%</td>
+<td>R$ 522,96</td>
+<td>11.00%</td>
+<td>9.00%</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>3. Análise do Growth Analyst (AI Gemini)</h2>
+<h3>Resumo Executivo</h3>
+<p>O teste A/B do Parceiro B demonstrou que a variante 'Grupo 1' apresentou o melhor desempenho em termos de ROI e ROI %, sendo financeiramente sustentável. As variantes 'Grupo 2' e 'Grupo 3', embora com maiores percentuais de cashback, resultaram em menor retorno financeiro e ROI negativo/muito baixo.</p>
+<h3>Análise Detalhada</h3>
+<p>O 'Grupo 1' obteve um ROI de R$ 286.570,00 e um ROI % de 175,0%, sendo a única variante com ROI positivo e expressivo. Apesar de ter o menor percentual de cashback (4,0%), gerou o maior volume de vendas (R$ 4.093.818,00) e o maior número de compradores (7.990). O 'Grupo 2' apresentou um ROI de R$ 143.157,00 e ROI % de 83,34%, com um percentual de cashback de 6,0% e um ticket médio ligeiramente maior. O 'Grupo 3', com o maior percentual de cashback (9,0%), obteve o menor ROI (R$ 52.593,00) e ROI % (22,22%), com um número significativamente menor de compradores (5.029). Ambos os grupos 2 e 3 apresentaram um ROI percentual inferior ao custo do cashback, indicando uma sustentabilidade financeira questionável em maior escala ou com ajustes.</p>
+<hr />
+<h2>4. Decisão de Escala e Próximos Passos</h2>
+<ul>
+<li><strong>Variante Vencedora (a ser escalada para 100%)</strong>: <strong>Grupo 1</strong></li>
+</ul>
+<h3>Ação Recomendada</h3>
+<blockquote>
+<p>Recomenda-se escalar o 'Grupo 1' para 100% do tráfego, pois demonstrou ser a variante mais sustentável financeiramente e a mais eficiente em gerar retorno. É aconselhável monitorar de perto o desempenho após a escala para garantir a manutenção dos resultados positivos. As variantes 'Grupo 2' e 'Grupo 3' devem ser desativadas ou reavaliadas com novas configurações, pois não apresentaram sustentabilidade financeira e eficiência comparáveis ao 'Grupo 1'.</p>
+</blockquote>
+<hr />
+<p><em>Relatório gerado de forma autônoma pelo Growth Analyst AI CLI.</em></p>
+    </div>
+</body>
+</html>

@@ -13,8 +13,9 @@ An autonomous Python Command Line Interface (CLI) to process A/B test datasets f
 
 ## 📋 Table of Contents
 1. [✨ Features](#features)
-2. [🤖 AI Setup & Workflow (Natural Language)](#ai-setup-and-workflow)
-3. [🚀 Setup & How to Run (Traditional CLI)](#traditional-cli-setup-and-run)
+2. [📊 Tracking Spreadsheet](#tracking-spreadsheet)
+3. [🤖 AI Setup & Workflow (Natural Language)](#ai-setup-and-workflow)
+4. [🚀 Setup & How to Run (Traditional CLI)](#traditional-cli-setup-and-run)
 
 ---
 
@@ -25,6 +26,11 @@ An autonomous Python Command Line Interface (CLI) to process A/B test datasets f
 - **Module B: AI Analyzer (Multi-Model Support)**: Sends aggregate metrics to your chosen AI provider (OpenAI `gpt-4o-mini`, Anthropic `claude-3-5-sonnet-latest`, or Gemini `gemini-2.5-flash`) using priority-based environment variables. Enforces structured JSON output parsing to keep other modules fully compatible and vendor-lock-in free.
 - **Module C: Storage & Tracking (Google Sheets API)**: Registers analysis in a centralized sheet using `gspread`, falling back gracefully to a local `result_sheet.csv` if credentials/connection fail.
 - **Module D: Presentation Layer**: Generates detailed local Markdown reports (for developer/agent parsing) and beautifully styled HTML reports (for managers/directors) under `reports/`, prints a summary layout to the console, and displays a clickable local file:// URI.
+
+<a id="tracking-spreadsheet"></a>
+## 📊 Tracking Spreadsheet
+
+Track the analysis results here: https://docs.google.com/spreadsheets/d/1CWcNmrAfROCmZ_wJs0wwFUFQY6Zp4CzH_ikQtpdhzjw/
 
 ---
 
@@ -185,8 +191,9 @@ Uma interface de linha de comando (CLI) em Python para processar dados de testes
 
 ## 📋 Tabela de Conteúdos
 1. [✨ Funcionalidades](#funcionalidades)
-2. [🤖 Configuração e Fluxo de Trabalho AI (Linguagem Natural)](#configuracao-e-fluxo-ai)
-3. [🚀 Configuração e Execução (CLI Tradicional)](#configuracao-e-execucao-cli)
+2. [📊 Planilha de Acompanhamento](#planilha-de-acompanhamento)
+3. [🤖 Configuração e Fluxo de Trabalho AI (Linguagem Natural)](#configuracao-e-fluxo-ai)
+4. [🚀 Configuração e Execução (CLI Tradicional)](#configuracao-e-execucao-cli)
 
 ---
 
@@ -197,6 +204,11 @@ Uma interface de linha de comando (CLI) em Python para processar dados de testes
 - **Módulo B: AI Analyzer (Suporte Multi-Modelo)**: Envia métricas agregadas para o provedor de IA de sua escolha (OpenAI `gpt-4o-mini`, Anthropic `claude-3-5-sonnet-latest` ou Gemini `gemini-2.5-flash`) de forma agnóstica a fornecedores. Garante a saída no mesmo esquema JSON para compatibilidade total.
 - **Módulo C: Armazenamento e Rastreamento (Google Sheets)**: Registra o teste em uma planilha compartilhada usando `gspread` com fallback automático em arquivo `result_sheet.csv`.
 - **Módulo D: Apresentação**: Gera relatórios Markdown locais (para desenvolvedores/agentes de IA) e relatórios HTML com estilização profissional corporativa (para gerentes/diretores) na pasta `reports/`, exibe um sumário no terminal e fornece uma URI clicável file:// para abrir o relatório HTML no navegador.
+
+<a id="planilha-de-acompanhamento"></a>
+## 📊 Planilha de Acompanhamento
+
+Acompanhe os resultados das analises aqui: https://docs.google.com/spreadsheets/d/1CWcNmrAfROCmZ_wJs0wwFUFQY6Zp4CzH_ikQtpdhzjw/
 
 ---
 
