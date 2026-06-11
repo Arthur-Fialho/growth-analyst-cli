@@ -48,7 +48,46 @@ Open the project folder in your preferred AI-native environment:
     claude
     ```
 
-### 3. How to interact via natural language:
+### 3. Environment Variables (.env)
+Create a `.env` file in the root of the project (copy from `.env.example`) and configure your preferred AI provider API key along with sheets tracking:
+```env
+# AI Providers (Fill the one you want to use; OpenAI is prioritized, then Anthropic, then Gemini fallback)
+OPENAI_API_KEY="your-openai-api-key"
+ANTHROPIC_API_KEY="your-anthropic-api-key"
+GEMINI_API_KEY="your-gemini-api-key"
+
+# central Google Sheets tracking config
+GOOGLE_SHEET_ID="your-google-sheet-id"
+GOOGLE_SHEETS_CREDENTIALS_JSON="your-raw-json-credentials-string"
+
+# Optional Gemini model override
+GEMINI_MODEL="gemini-2.5-flash"
+```
+
+### 4. Google Sheets Integration Setup (Optional)
+To receive the generated reports directly in Google Sheets, you need to configure `GOOGLE_SHEET_ID` and `GOOGLE_SHEETS_CREDENTIALS_JSON` in your `.env` file. Here is how to create and configure them:
+
+1. **Create a Google Cloud Project**:
+   - Open the [Google Cloud Console](https://console.cloud.google.com/).
+   - Click on the project dropdown, select **New Project**, name it (e.g. `growth-analyst-cli`), and click **Create**.
+2. **Enable APIs**:
+   - Go to **APIs & Services > Library**.
+   - Search for **Google Drive API** and click **Enable**.
+   - Search for **Google Sheets API** and click **Enable**.
+3. **Create a Service Account & Download Credentials JSON**:
+   - Go to **APIs & Services > Credentials**.
+   - Click **+ Create Credentials** and choose **Service Account**.
+   - Enter a service account name, click **Create and Continue**, then click **Done**.
+   - In the Service Accounts list, click on the newly created service account's email.
+   - Go to the **Keys** tab, click **Add Key > Create new key**, select **JSON**, and click **Create**.
+   - A JSON file will be downloaded. Open it, copy the entire JSON string, and paste it into the `GOOGLE_SHEETS_CREDENTIALS_JSON` variable inside your `.env` (ensure it is placed within single or double quotes, e.g. `GOOGLE_SHEETS_CREDENTIALS_JSON='{...}'`).
+4. **Configure Google Sheet ID**:
+   - Create a new Google Spreadsheet or open an existing one.
+   - Share the spreadsheet with the Service Account email (e.g., `your-service-account@...gserviceaccount.com`) as an **Editor**.
+   - Copy the spreadsheet ID from the browser URL (the part between `/d/` and `/edit`).
+   - Paste this ID into the `GOOGLE_SHEET_ID` variable in your `.env`.
+
+### 5. How to interact via natural language:
 1. **Drop or Attach**: Drag and drop or attach your CSV file into the AI chat interface (Cursor Composer, Claude Code, etc.).
    *Note: If you cannot drag/attach the CSV file directly into the AI agent's chat window, simply place the CSV file anywhere in the project folder (ideally in the `data/` folder or at the project root). The CLI's Smart Data Routing will automatically locate the file, copy it to the `data/` directory for organization, and run the pipeline. Just ask the AI to analyze the file `yourfilename.csv` or its project path.*
 2. **Ask in Natural Language**:
@@ -181,7 +220,46 @@ Abra a pasta do projeto no seu ambiente de IA preferido:
     claude
     ```
 
-### 3. Como interagir via linguagem natural:
+### 3. Variáveis de Ambiente (.env)
+Crie um arquivo `.env` na raiz do projeto (copiado de `.env.example`) e configure a chave de API do seu provedor de IA preferido:
+```env
+# Provedores de IA (Preencha o que deseja utilizar; OpenAI tem prioridade, seguido por Anthropic e Gemini fallback)
+OPENAI_API_KEY="sua-chave-api-openai"
+ANTHROPIC_API_KEY="sua-chave-api-anthropic"
+GEMINI_API_KEY="sua-chave-api-gemini"
+
+# Configurações do Google Sheets
+GOOGLE_SHEET_ID="id-da-planilha-google"
+GOOGLE_SHEETS_CREDENTIALS_JSON="conteudo-json-de-credenciais-de-conta-de-servico"
+
+# Opcional (override do modelo Gemini)
+GEMINI_MODEL="gemini-2.5-flash"
+```
+
+### 4. Configuração da Integração com o Google Sheets (Opcional)
+Para enviar os relatórios gerados diretamente para uma planilha do Google Sheets, você precisa configurar as variáveis `GOOGLE_SHEET_ID` e `GOOGLE_SHEETS_CREDENTIALS_JSON` no seu arquivo `.env`. Veja como criar e configurar as credenciais:
+
+1. **Criar um Projeto no Google Cloud**:
+   - Acesse o [Google Cloud Console](https://console.cloud.google.com/).
+   - Clique no seletor de projetos, clique em **Novo Projeto**, dê um nome (por exemplo, `growth-analyst-cli`) e clique em **Criar**.
+2. **Habilitar APIs**:
+   - Acesse **APIs e Serviços > Biblioteca**.
+   - Pesquise por **Google Drive API** e clique em **Ativar**.
+   - Pesquise por **Google Sheets API** e clique em **Ativar**.
+3. **Criar Conta de Serviço e Baixar Credenciais JSON**:
+   - Acesse **APIs e Serviços > Credenciais**.
+   - Clique em **+ Criar Credenciais** e selecione **Conta de serviço**.
+   - Preencha o nome da conta de serviço, clique em **Criar e Continuar** e depois em **Concluir**.
+   - Na lista de Contas de Serviço, clique no e-mail da conta que acabou de criar.
+   - Vá para a aba **Chaves**, clique em **Adicionar chave > Criar nova chave**, selecione **JSON** e clique em **Criar**.
+   - Um arquivo JSON será baixado. Abra-o, copie todo o conteúdo e cole-o na variável `GOOGLE_SHEETS_CREDENTIALS_JSON` do seu `.env` (certifique-se de colocá-lo entre aspas simples, ex: `GOOGLE_SHEETS_CREDENTIALS_JSON='{...}'`).
+4. **Configurar o ID da Planilha**:
+   - Crie ou abra uma planilha no Google Sheets.
+   - Compartilhe a planilha com o e-mail da Conta de Serviço (ex: `seu-email-da-conta-de-servico@...gserviceaccount.com`) dando permissão de **Editor**.
+   - Copie o ID da planilha contido na URL do navegador (a parte entre `/d/` e `/edit`).
+   - Cole esse ID na variável `GOOGLE_SHEET_ID` no seu `.env`.
+
+### 5. Como interagir via linguagem natural:
 1. **Arrastar e Anexar**: Arraste e solte ou anexe seu arquivo CSV na interface de chat da IA (Cursor Composer, Claude Code, etc.).
    *Nota: Se não for possível arrastar/anexar o arquivo CSV diretamente na caixa de texto do agente de IA, basta colocar o arquivo em qualquer pasta do projeto (idealmente dentro da pasta `data/` ou na raiz do projeto). O Roteamento Inteligente de Dados da CLI irá localizá-lo, copiá-lo para a pasta `data/` para manter a organização e executar a análise. Em seguida, basta pedir para a IA analisar o arquivo `nome_do_arquivo.csv` ou indicar o seu caminho.*
 2. **Pergunte em Linguagem Natural**:
@@ -251,7 +329,7 @@ Execute a análise passando o caminho do arquivo CSV:
 python3 main.py data/dataset_01_parceiroA.csv
 ```
 
-*Nota: Com o Roteamento de Dados Inteligente (Smart Data Routing), se você especificar um arquivo CSV fora do diretório do projeto, a CLI o copiará automaticamente para a pasta `data/` para manter o repositório organizado.*
+*Note: With Smart Data Routing, if you specify a CSV file from outside the project directory, the CLI o copiará automaticamente para a pasta `data/` para manter o repositório organizado.*
 
 #### Opções de CLI:
 - `--sheet-id [ID]`: Sobrescreve o ID da planilha do Google.
