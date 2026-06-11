@@ -12,28 +12,33 @@
 An autonomous Python Command Line Interface (CLI) to process A/B test datasets for cashback variations. It generates detailed aggregate metrics, utilizes the user's preferred LLM provider (OpenAI, Anthropic, or Gemini) to perform a professional growth/sustainability analysis with structured JSON output, logs the test results to a centralized Google Sheet (with a local CSV fallback), and creates professional local Markdown and HTML reports.
 
 ## 📋 Table of Contents
-1. [🛠️ Setup & Installation](#setup-and-installation)
-2. [✨ Features](#features)
-3. [🤖 The AI-Native Workflow (Natural Language Execution)](#ai-native-workflow)
-4. [🚀 How to Run (Traditional CLI)](#how-to-run)
+1. [✨ Features](#features)
+2. [🤖 AI Setup & Workflow (Natural Language)](#ai-setup-and-workflow)
+3. [🚀 Setup & How to Run (Traditional CLI)](#traditional-cli-setup-and-run)
 
 ---
 
-<a id="setup-and-installation"></a>
-## 🛠️ Setup & Installation
+<a id="features"></a>
+## ✨ Features
+
+- **Module A: Data Sanitization (Pandas)**: Cleans Brazilian formatted currency strings (R$), drops invalid rows, groups by variant, and calculates aggregate growth/financial metrics. Also implements **Smart Data Routing** to automatically copy outside CSVs to the local `data/` directory.
+- **Module B: AI Analyzer (Multi-Model Support)**: Sends aggregate metrics to your chosen AI provider (OpenAI `gpt-4o-mini`, Anthropic `claude-3-5-sonnet-latest`, or Gemini `gemini-2.5-flash`) using priority-based environment variables. Enforces structured JSON output parsing to keep other modules fully compatible and vendor-lock-in free.
+- **Module C: Storage & Tracking (Google Sheets API)**: Registers analysis in a centralized sheet using `gspread`, falling back gracefully to a local `result_sheet.csv` if credentials/connection fail.
+- **Module D: Presentation Layer**: Generates detailed local Markdown reports (for developer/agent parsing) and beautifully styled HTML reports (for managers/directors) under `reports/`, prints a summary layout to the console, and displays a clickable local file:// URI.
+
+---
+
+<a id="ai-setup-and-workflow"></a>
+## 🤖 AI Setup & Workflow (Natural Language)
+
+This CLI is designed to be agent-friendly. **You do not need to memorize terminal commands or type CLI options manually.** You can execute analyses entirely through natural language by dropping a CSV file into Cursor, Claude Code, or other AI assistants.
 
 ### 1. Clone the Repository & Navigate to the Folder
 Clone the repository using Git and navigate to the project directory:
-*   **Via HTTPS:**
-    ```bash
-    git clone https://github.com/Arthur-Fialho/growth-analyst-cli.git
-    cd growth-analyst-cli
-    ```
-*   **Via SSH:**
-    ```bash
-    git clone git@github.com:Arthur-Fialho/growth-analyst-cli.git
-    cd growth-analyst-cli
-    ```
+```bash
+git clone https://github.com/Arthur-Fialho/growth-analyst-cli.git
+cd growth-analyst-cli
+```
 
 ### 2. Open in Antigravity or Claude Code
 Open the project folder in your preferred AI-native environment:
@@ -43,10 +48,22 @@ Open the project folder in your preferred AI-native environment:
     claude
     ```
 
-### 3. Requirements
+### 3. How to interact via natural language:
+1. **Drop or Attach**: Drag and drop or attach your CSV file into the AI chat interface (Cursor Composer, Claude Code, etc.).
+   *Note: If you cannot drag/attach the CSV file directly into the AI agent's chat window, simply place the CSV file anywhere in the project folder (ideally in the `data/` folder or at the project root). The CLI's Smart Data Routing will automatically locate the file, copy it to the `data/` directory for organization, and run the pipeline. Just ask the AI to analyze the file `yourfilename.csv` or its project path.*
+2. **Ask in Natural Language**:
+   > *"Analyze this dataset for me"* or *"Analyze the A/B test of Partner A at data/dataset_01_parceiroA.csv"*
+3. **Execution**: The AI agent will read the `.cursorrules` and `README.md` files, automatically execute `python main.py <path_to_file>` (handling Smart Data Routing if the file was outside the project), parse the output, and present the final Growth decision directly in your chat window.
+
+---
+
+<a id="traditional-cli-setup-and-run"></a>
+## 🚀 Setup & How to Run (Traditional CLI)
+
+### 1. Requirements
 Ensure you have Python 3.8+ installed.
 
-### 4. Install Dependencies
+### 2. Install Dependencies
 Install the required packages using pip:
 ```bash
 pip install -r requirements.txt
@@ -56,7 +73,7 @@ pip install -r requirements.txt
 pip install --break-system-packages -r requirements.txt
 ```
 
-### 5. Environment Variables (.env)
+### 3. Environment Variables (.env)
 Create a `.env` file in the root of the project (copy from `.env.example`) and configure your preferred AI provider API key along with sheets tracking:
 ```env
 # AI Providers (Fill the one you want to use; OpenAI is prioritized, then Anthropic, then Gemini fallback)
@@ -72,7 +89,7 @@ GOOGLE_SHEETS_CREDENTIALS_JSON="your-raw-json-credentials-string"
 GEMINI_MODEL="gemini-2.5-flash"
 ```
 
-### 6. Google Sheets Integration Setup (Optional)
+### 4. Google Sheets Integration Setup (Optional)
 To receive the generated reports directly in Google Sheets, you need to configure `GOOGLE_SHEET_ID` and `GOOGLE_SHEETS_CREDENTIALS_JSON` in your `.env` file. Here is how to create and configure them:
 
 1. **Create a Google Cloud Project**:
@@ -95,36 +112,7 @@ To receive the generated reports directly in Google Sheets, you need to configur
    - Copy the spreadsheet ID from the browser URL (the part between `/d/` and `/edit`).
    - Paste this ID into the `GOOGLE_SHEET_ID` variable in your `.env`.
 
-
----
-
-<a id="features"></a>
-## ✨ Features
-
-- **Module A: Data Sanitization (Pandas)**: Cleans Brazilian formatted currency strings (R$), drops invalid rows, groups by variant, and calculates aggregate growth/financial metrics. Also implements **Smart Data Routing** to automatically copy outside CSVs to the local `data/` directory.
-- **Module B: AI Analyzer (Multi-Model Support)**: Sends aggregate metrics to your chosen AI provider (OpenAI `gpt-4o-mini`, Anthropic `claude-3-5-sonnet-latest`, or Gemini `gemini-2.5-flash`) using priority-based environment variables. Enforces structured JSON output parsing to keep other modules fully compatible and vendor-lock-in free.
-- **Module C: Storage & Tracking (Google Sheets API)**: Registers analysis in a centralized sheet using `gspread`, falling back gracefully to a local `result_sheet.csv` if credentials/connection fail.
-- **Module D: Presentation Layer**: Generates detailed local Markdown reports (for developer/agent parsing) and beautifully styled HTML reports (for managers/directors) under `reports/`, prints a summary layout to the console, and displays a clickable local file:// URI.
-
----
-
-<a id="ai-native-workflow"></a>
-## 🤖 The AI-Native Workflow (Natural Language Execution)
-
-This CLI is designed to be agent-friendly. **You do not need to memorize terminal commands or type CLI options manually.** You can execute analyses entirely through natural language by dropping a CSV file into Cursor, Claude Code, or other AI assistants.
-
-### How to interact via natural language:
-1. **Drop or Attach**: Drag and drop or attach your CSV file into the AI chat interface (Cursor Composer, Claude Code, etc.).
-   *Note: If you cannot drag/attach the CSV file directly into the AI agent's chat window, simply place the CSV file anywhere in the project folder (ideally in the `data/` folder or at the project root). The CLI's Smart Data Routing will automatically locate the file, copy it to the `data/` directory for organization, and run the pipeline. Just ask the AI to analyze the file `yourfilename.csv` or its project path.*
-2. **Ask in Natural Language**:
-   > *"Analyze this dataset for me"* or *"Analyze the A/B test of Partner A at data/dataset_01_parceiroA.csv"*
-3. **Execution**: The AI agent will read the `.cursorrules` and `README.md` files, automatically execute `python main.py <path_to_file>` (handling Smart Data Routing if the file was outside the project), parse the output, and present the final Growth decision directly in your chat window.
-
----
-
-<a id="how-to-run"></a>
-## 🚀 How to Run (Traditional CLI)
-
+### 5. Running the Traditional CLI
 Analyze a dataset by specifying the path to the CSV:
 ```bash
 python3 main.py data/dataset_01_parceiroA.csv
@@ -132,7 +120,7 @@ python3 main.py data/dataset_01_parceiroA.csv
 
 *Note: With Smart Data Routing, if you specify a CSV file from outside the project directory, the CLI will automatically copy it into the `data/` folder for repository organization.*
 
-### Options:
+#### CLI Options:
 - `--sheet-id [ID]`: Override the target Google Sheet ID.
 - `--test-name "[Name]"`: Customize the name of the test.
 - `--test-description "[Description]"`: Customize the description of the test.
@@ -157,28 +145,33 @@ python3 main.py data/dataset_01_parceiroA.csv
 Uma interface de linha de comando (CLI) em Python para processar dados de testes A/B de variações de cashback. Ela calcula métricas agregadas, utiliza o provedor de IA de sua escolha (OpenAI, Anthropic ou Gemini) para realizar uma análise de sustentabilidade financeira sob a perspectiva de um Growth Analyst Sênior com retorno em JSON estruturado, registra os resultados em uma planilha do Google Sheets (com fallback local em CSV) e gera relatórios em Markdown e HTML.
 
 ## 📋 Tabela de Conteúdos
-1. [🛠️ Instalação e Configuração](#instalacao-e-configuracao)
-2. [✨ Funcionalidades](#funcionalidades)
-3. [🤖 O Fluxo de Trabalho AI-Native (Execução em Linguagem Natural)](#fluxo-ai-native)
-4. [🚀 Como Executar (CLI Tradicional)](#como-executar)
+1. [✨ Funcionalidades](#funcionalidades)
+2. [🤖 Configuração e Fluxo de Trabalho AI (Linguagem Natural)](#configuracao-e-fluxo-ai)
+3. [🚀 Configuração e Execução (CLI Tradicional)](#configuracao-e-execucao-cli)
 
 ---
 
-<a id="instalacao-e-configuracao"></a>
-## 🛠️ Instalação e Configuração
+<a id="funcionalidades"></a>
+## ✨ Funcionalidades
+
+- **Módulo A: Higienização de Dados (Pandas)**: Limpa valores monetários brasileiros (R$), remove linhas corrompidas e calcula agregados financeiros e de ROI por grupo. Também implementa o **Roteamento de Dados Inteligente** para copiar automaticamente CSVs externos para a pasta `data/`.
+- **Módulo B: AI Analyzer (Suporte Multi-Modelo)**: Envia métricas agregadas para o provedor de IA de sua escolha (OpenAI `gpt-4o-mini`, Anthropic `claude-3-5-sonnet-latest` ou Gemini `gemini-2.5-flash`) de forma agnóstica a fornecedores. Garante a saída no mesmo esquema JSON para compatibilidade total.
+- **Módulo C: Armazenamento e Rastreamento (Google Sheets)**: Registra o teste em uma planilha compartilhada usando `gspread` com fallback automático em arquivo `result_sheet.csv`.
+- **Módulo D: Apresentação**: Gera relatórios Markdown locais (para desenvolvedores/agentes de IA) e relatórios HTML com estilização profissional corporativa (para gerentes/diretores) na pasta `reports/`, exibe um sumário no terminal e fornece uma URI clicável file:// para abrir o relatório HTML no navegador.
+
+---
+
+<a id="configuracao-e-fluxo-ai"></a>
+## 🤖 Configuração e Fluxo de Trabalho AI (Linguagem Natural)
+
+Esta CLI foi projetada para ser amigável para agentes de IA. **Você não precisa memorizar comandos de terminal ou digitar opções da CLI manualmente.** Você pode executar análises inteiramente usando linguagem natural simplesmente arrastando e soltando um arquivo CSV no Cursor, Claude Code ou outro assistente de IA.
 
 ### 1. Clonar o Repositório e Acessar a Pasta
 Clone o repositório utilizando Git e navegue até a pasta do projeto:
-*   **Via HTTPS:**
-    ```bash
-    git clone https://github.com/Arthur-Fialho/growth-analyst-cli.git
-    cd growth-analyst-cli
-    ```
-*   **Via SSH:**
-    ```bash
-    git clone git@github.com:Arthur-Fialho/growth-analyst-cli.git
-    cd growth-analyst-cli
-    ```
+```bash
+git clone https://github.com/Arthur-Fialho/growth-analyst-cli.git
+cd growth-analyst-cli
+```
 
 ### 2. Abrir no Antigravity ou Claude Code
 Abra a pasta do projeto no seu ambiente de IA preferido:
@@ -188,10 +181,22 @@ Abra a pasta do projeto no seu ambiente de IA preferido:
     claude
     ```
 
-### 3. Requisitos
+### 3. Como interagir via linguagem natural:
+1. **Arrastar e Anexar**: Arraste e solte ou anexe seu arquivo CSV na interface de chat da IA (Cursor Composer, Claude Code, etc.).
+   *Nota: Se não for possível arrastar/anexar o arquivo CSV diretamente na caixa de texto do agente de IA, basta colocar o arquivo em qualquer pasta do projeto (idealmente dentro da pasta `data/` ou na raiz do projeto). O Roteamento Inteligente de Dados da CLI irá localizá-lo, copiá-lo para a pasta `data/` para manter a organização e executar a análise. Em seguida, basta pedir para a IA analisar o arquivo `nome_do_arquivo.csv` ou indicar o seu caminho.*
+2. **Pergunte em Linguagem Natural**:
+   > *"Analise este dataset para mim"* ou *"Analise o teste A/B do Parceiro A em data/dataset_01_parceiroA.csv"*
+3. **Execução**: O agente de IA lerá as regras em `.cursorrules` e `README.md`, executará automaticamente `python main.py <caminho_do_arquivo>` (copiando-o para a pasta `data/` se necessário), processará a saída e apresentará a decisão final de Growth diretamente na sua tela de chat.
+
+---
+
+<a id="configuracao-e-execucao-cli"></a>
+## 🚀 Configuração e Execução (CLI Tradicional)
+
+### 1. Requisitos
 Certifique-se de ter o Python 3.8+ instalado.
 
-### 4. Instalar Dependências
+### 2. Instalar Dependências
 Instale as dependências necessárias com pip:
 ```bash
 pip install -r requirements.txt
@@ -201,7 +206,7 @@ pip install -r requirements.txt
 pip install --break-system-packages -r requirements.txt
 ```
 
-### 5. Variáveis de Ambiente (.env)
+### 3. Variáveis de Ambiente (.env)
 Crie um arquivo `.env` na raiz do projeto (copiado de `.env.example`) e configure a chave de API do seu provedor de IA preferido:
 ```env
 # Provedores de IA (Preencha o que deseja utilizar; OpenAI tem prioridade, seguido por Anthropic e Gemini fallback)
@@ -217,7 +222,7 @@ GOOGLE_SHEETS_CREDENTIALS_JSON="conteudo-json-de-credenciais-de-conta-de-servico
 GEMINI_MODEL="gemini-2.5-flash"
 ```
 
-### 6. Configuração da Integração com o Google Sheets (Opcional)
+### 4. Configuração da Integração com o Google Sheets (Opcional)
 Para enviar os relatórios gerados diretamente para uma planilha do Google Sheets, você precisa configurar as variáveis `GOOGLE_SHEET_ID` e `GOOGLE_SHEETS_CREDENTIALS_JSON` no seu arquivo `.env`. Veja como criar e configurar as credenciais:
 
 1. **Criar um Projeto no Google Cloud**:
@@ -240,36 +245,7 @@ Para enviar os relatórios gerados diretamente para uma planilha do Google Sheet
    - Copie o ID da planilha contido na URL do navegador (a parte entre `/d/` e `/edit`).
    - Cole esse ID na variável `GOOGLE_SHEET_ID` no seu `.env`.
 
-
----
-
-<a id="funcionalidades"></a>
-## ✨ Funcionalidades
-
-- **Módulo A: Higienização de Dados (Pandas)**: Limpa valores monetários brasileiros (R$), remove linhas corrompidas e calcula agregados financeiros e de ROI por grupo. Também implementa o **Roteamento de Dados Inteligente** para copiar automaticamente CSVs externos para a pasta `data/`.
-- **Módulo B: AI Analyzer (Suporte Multi-Modelo)**: Envia métricas agregadas para o provedor de IA de sua escolha (OpenAI `gpt-4o-mini`, Anthropic `claude-3-5-sonnet-latest` ou Gemini `gemini-2.5-flash`) de forma agnóstica a fornecedores. Garante a saída no mesmo esquema JSON para compatibilidade total.
-- **Módulo C: Armazenamento e Rastreamento (Google Sheets)**: Registra o teste em uma planilha compartilhada usando `gspread` com fallback automático em arquivo `result_sheet.csv`.
-- **Módulo D: Apresentação**: Gera relatórios Markdown locais (para desenvolvedores/agentes de IA) e relatórios HTML com estilização profissional corporativa (para gerentes/diretores) na pasta `reports/`, exibe um sumário no terminal e fornece uma URI clicável file:// para abrir o relatório HTML no navegador.
-
----
-
-<a id="fluxo-ai-native"></a>
-## 🤖 O Fluxo de Trabalho AI-Native (Execução em Linguagem Natural)
-
-Esta CLI foi projetada para ser amigável para agentes de IA. **Você não precisa memorizar comandos de terminal ou digitar opções da CLI manualmente.** Você pode executar análises inteiramente usando linguagem natural simplesmente arrastando e soltando um arquivo CSV no Cursor, Claude Code ou outro assistente de IA.
-
-### Como interagir via linguagem natural:
-1. **Arrastar e Anexar**: Arraste e solte ou anexe seu arquivo CSV na interface de chat da IA (Cursor Composer, Claude Code, etc.).
-   *Nota: Se não for possível arrastar/anexar o arquivo CSV diretamente na caixa de texto do agente de IA, basta colocar o arquivo em qualquer pasta do projeto (idealmente dentro da pasta `data/` ou na raiz do projeto). O Roteamento Inteligente de Dados da CLI irá localizá-lo, copiá-lo para a pasta `data/` para manter a organização e executar a análise. Em seguida, basta pedir para a IA analisar o arquivo `nome_do_arquivo.csv` ou indicar o seu caminho.*
-2. **Pergunte em Linguagem Natural**:
-   > *"Analise este dataset para mim"* ou *"Analise o teste A/B do Parceiro A em data/dataset_01_parceiroA.csv"*
-3. **Execução**: O agente de IA lerá as regras em `.cursorrules` e `README.md`, executará automaticamente `python main.py <caminho_do_arquivo>` (copiando-o para a pasta `data/` se necessário), processará a saída e apresentará a decisão final de Growth diretamente na sua tela de chat.
-
----
-
-<a id="como-executar"></a>
-## 🚀 Como Executar (CLI Tradicional)
-
+### 5. Executando a CLI Tradicional
 Execute a análise passando o caminho do arquivo CSV:
 ```bash
 python3 main.py data/dataset_01_parceiroA.csv
@@ -277,7 +253,7 @@ python3 main.py data/dataset_01_parceiroA.csv
 
 *Nota: Com o Roteamento de Dados Inteligente (Smart Data Routing), se você especificar um arquivo CSV fora do diretório do projeto, a CLI o copiará automaticamente para a pasta `data/` para manter o repositório organizado.*
 
-### Opções:
+#### Opções de CLI:
 - `--sheet-id [ID]`: Sobrescreve o ID da planilha do Google.
 - `--test-name "[Nome]"`: Define um nome customizado para o teste.
 - `--test-description "[Descrição]"`: Define uma descrição customizada para o teste.
